@@ -9,21 +9,23 @@ int main(int argc, char *argv[]){
         return EXIT_FAILURE;
     }
 
-    FILE *fp;
+    FILE *fpi, *fpo;
     char caracter;
-    fp = fopen(argv[1],"r");
-    if(fp==NULL) {
+    fpi = fopen(argv[1],"r");
+    fpo = fopen(argv[2], "w");
+    if(fpi==NULL) {
         printf("FILE ERROR FILE DOESN'T EXISTS");
         return EXIT_FAILURE;
     }else{
-        printf("Esto es un test:\n\n");
-        while((caracter = fgetc(fp)) != EOF){
-            printf("%c",caracter);
+        printf("Revise el Archivo %s:\n\n",argv[2]);
+        while((caracter = fgetc(fpi)) != EOF){
+            fprintf(fpo,"%c",caracter);
         }
     }
 
 
 
-    fclose(fp);
+    fclose(fpi);
+    fclose(fpo);
     return EXIT_SUCCESS;
 }
