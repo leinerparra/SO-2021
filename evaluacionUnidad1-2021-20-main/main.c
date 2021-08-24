@@ -11,16 +11,44 @@ int main(int argc, char *argv[]){
 
     FILE *fpi, *fpo;
     char caracter;
+    int cont=0,cant=0, j=0;
     fpi = fopen(argv[1],"r");
     fpo = fopen(argv[2], "w");
     if(fpi==NULL) {
         printf("FILE ERROR FILE DOESN'T EXISTS");
         return EXIT_FAILURE;
     }else{
-        printf("Revise el Archivo %s:\n\n",argv[2]);
         while((caracter = fgetc(fpi)) != EOF){
-            fprintf(fpo,"%c",caracter);
+            if(caracter == '\n') {
+                cont++;
+            }
+            if(cont == 1){
+                cant++;
+            }
         }
+        cont=0;
+        rewind(fpi);
+        char frase[cant];
+        while((caracter = fgetc(fpi)) != EOF){
+            if(cont == 0){ //feature1
+                fprintf(fpo,"%c",caracter);
+            }else if(cont == 1){ //feature2
+                if(j!=0){
+                    frase[cant-j] = caracter;
+                }
+                j++;
+                if(cant==j){
+                    frase[0] = ' ';
+                    fprintf(fpo,frase);
+                }
+            }
+
+            if(caracter == '\n'){
+                cont++;
+            }
+        }
+        fprintf(fpo,"\n");
+
     }
 
 
