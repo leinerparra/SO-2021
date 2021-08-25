@@ -10,8 +10,8 @@ int main(int argc, char *argv[]){
     }
 
     FILE *fpi, *fpo;
-    char caracter;
-    int cont=0,cant=0, j=0;
+    char caracter, num[5], *numm;
+    int cont=0,cant=0, j=0, sum=0, nume=0;
     fpi = fopen(argv[1],"r");
     fpo = fopen(argv[2], "w");
     if(fpi==NULL) {
@@ -31,7 +31,9 @@ int main(int argc, char *argv[]){
         char frase[cant];
         while((caracter = fgetc(fpi)) != EOF){
             if(cont == 0){ //feature1
-                fprintf(fpo,"%c",caracter);
+                if(caracter!='\n'){
+                    fprintf(fpo,"%c",caracter);
+                }   
             }else if(cont == 1){ //feature2
                 if(j!=0){
                     frase[cant-j] = caracter;
@@ -40,7 +42,26 @@ int main(int argc, char *argv[]){
                 if(cant==j){
                     frase[0] = ' ';
                     fprintf(fpo,frase);
+                    j=0;
+                    fprintf(fpo,"\n");
                 }
+            }else if(cont== 2){//feature3
+                if(caracter!=' ' && caracter !='\n'){
+                    num[j] = caracter;
+                    j++;
+                }else{
+                    j=0;
+                    nume = strtol(num, &numm,0);
+                    sum = sum + nume;
+                    for(int i=0; i<5; i++){
+                        num[i] = ' ';
+                    }
+                }
+                if(caracter == '\n'){
+                    fprintf(fpo,"%d",sum);
+                }
+            }else if(cont==3){
+                
             }
 
             if(caracter == '\n'){
