@@ -23,8 +23,8 @@ int main(int argc, char *argv[]){
     }
 
     FILE *fpi, *fpo;
-    char caracter, num[5], *numm, *ope;
-    int cont=0,cant=0, j=0,k=0, sum=0, nume=0;
+    char caracter, num[5], *numm, *ope, line[100], nombre[30],cc[30];
+    int cont=0,cant=0, j=0,k=0, sum=0, nume=0,Ced=0;
     int numero[100];
     fpi = fopen(argv[1],"r");
     fpo = fopen(argv[2], "w");
@@ -85,9 +85,9 @@ int main(int argc, char *argv[]){
                     k++;
             }
 
-            if(caracter == '\n'){
+            if(caracter == '\n'){ //feature5
                 ope = substr(numm,0, 3);
-                printf("%s",ope);
+
                 if(strcmp(ope,"avg")==0){
                     for(int i=0; i<=k;i++){
                         sum = sum + numero[i];
@@ -112,9 +112,30 @@ int main(int argc, char *argv[]){
                 }else{
                     fprintf(fpo,"Esa operacion no es reconocida");
                 }
-                
+                k=0;
             }
-
+            }else if(cont==4){ //feature6
+                if(caracter != '\n'){
+                    line[k] = caracter;
+                    k++;
+                }else{
+                    short x=0,y=0;
+                    for(int i=0; i<k;i++){
+                        if(line[i]==','){
+                            x=1;
+                        }
+                        else if(x==0){
+                            nombre[i] = line[i];
+                        }else if(x==1){
+                            cc[y] = line[i];
+                            y++;
+                        }
+                    }
+                    Ced = strtol(cc,&numm,0);
+                    struct Obj_t Est1 = {nombre, Ced};
+                    printf("%s",Est1.nombre);
+                    printf("%d",Est1.cedula);
+                }
             }
 
             if(caracter == '\n'){
@@ -124,8 +145,6 @@ int main(int argc, char *argv[]){
         fprintf(fpo,"\n");
 
     }
-
-
 
     fclose(fpi);
     fclose(fpo);
