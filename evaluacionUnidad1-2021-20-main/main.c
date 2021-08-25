@@ -3,6 +3,18 @@
 #include <string.h>
 #include "student.h"
 
+char* substr(char* cadena, int comienzo, int longitud)
+{
+    if (longitud == 0) 
+        longitud = strlen(cadena)-comienzo;
+    
+    char *nuevo = (char*)malloc(sizeof(char) * (longitud+1));
+    nuevo[longitud] = '\0';
+    strncpy(nuevo, cadena + comienzo, longitud);
+    
+    return nuevo;
+}
+
 int main(int argc, char *argv[]){
 
     if(argc!=3){
@@ -11,7 +23,7 @@ int main(int argc, char *argv[]){
     }
 
     FILE *fpi, *fpo;
-    char caracter, num[5], *numm, ope[3];
+    char caracter, num[5], *numm, *ope;
     int cont=0,cant=0, j=0,k=0, sum=0, nume=0;
     int numero[100];
     fpi = fopen(argv[1],"r");
@@ -74,9 +86,8 @@ int main(int argc, char *argv[]){
             }
 
             if(caracter == '\n'){
-                for(int i=0; i<3;i++){
-                    ope[i]=numm[i];
-                }
+                ope = substr(numm,0, 3);
+                printf("%s",ope);
                 if(strcmp(ope,"avg")==0){
                     for(int i=0; i<=k;i++){
                         sum = sum + numero[i];
