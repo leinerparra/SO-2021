@@ -10,8 +10,9 @@ int main(int argc, char *argv[]){
     }
 
     FILE *fpi, *fpo;
-    char caracter, num[5], *numm;
-    int cont=0,cant=0, j=0, sum=0, nume=0;
+    char caracter, num[5], *numm, ope[3];
+    int cont=0,cant=0, j=0,k=0, sum=0, nume=0;
+    int numero[100];
     fpi = fopen(argv[1],"r");
     fpo = fopen(argv[2], "w");
     if(fpi==NULL) {
@@ -58,14 +59,47 @@ int main(int argc, char *argv[]){
                     }
                 }
                 if(caracter == '\n'){
-                    fprintf(fpo,"%d",sum);
+                    fprintf(fpo,"%d\n",sum);
                 }
-            }else if(cont==3){
-                
+            }else if(cont==3){//feature4
+                if(caracter!=' ' && caracter !='\n'){
+                    num[j] = caracter;
+                    j++;
+                }else{
+                    j=0;
+                    nume = strtol(num, &numm,0);
+                    numero[k] = nume;
+                    k++;
             }
 
             if(caracter == '\n'){
-                cont++;
+                *ope = &numm;
+                if(ope == "avg"){
+                    for(int i=0; i<=k;i++){
+                        sum = sum + numero[i];
+                    }
+                    fprintf(fpo,"%d",(sum/k));
+                }else if(ope == "max"){
+                    int max = -500;
+                    for(int i =0; i<=k ; i++){
+                        if(numero[i] > max){
+                            max = numero[i];
+                        }
+                    }
+                    fprintf(fpo,"%d",max);
+                }else if(ope == "min"){
+                    int min = 500;
+                    for(int i =0; i<=k ; i++){
+                        if(numero[i] > min){
+                            min = numero[i];
+                        }
+                    }
+                    fprintf(fpo,"%d",min);
+                }else{
+                    fprintf(fpo,"Esa operacion no es reconocida");
+                }
+                //feature5
+                printf("%s",ope);
             }
         }
         fprintf(fpo,"\n");
