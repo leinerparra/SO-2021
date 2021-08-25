@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include "student.h"
 
 int main(int argc, char *argv[]){
@@ -73,13 +74,15 @@ int main(int argc, char *argv[]){
             }
 
             if(caracter == '\n'){
-                *ope = &numm;
-                if(ope == "avg"){
+                for(int i=0; i<3;i++){
+                    ope[i]=numm[i];
+                }
+                if(strcmp(ope,"avg")==0){
                     for(int i=0; i<=k;i++){
                         sum = sum + numero[i];
                     }
                     fprintf(fpo,"%d",(sum/k));
-                }else if(ope == "max"){
+                }else if(strcmp(ope,"max")==0){
                     int max = -500;
                     for(int i =0; i<=k ; i++){
                         if(numero[i] > max){
@@ -87,7 +90,7 @@ int main(int argc, char *argv[]){
                         }
                     }
                     fprintf(fpo,"%d",max);
-                }else if(ope == "min"){
+                }else if(strcmp(ope,"min")==0){
                     int min = 500;
                     for(int i =0; i<=k ; i++){
                         if(numero[i] > min){
@@ -98,8 +101,13 @@ int main(int argc, char *argv[]){
                 }else{
                     fprintf(fpo,"Esa operacion no es reconocida");
                 }
-                //feature5
-                printf("%s",ope);
+                
+            }
+
+            }
+
+            if(caracter == '\n'){
+                cont++;
             }
         }
         fprintf(fpo,"\n");
