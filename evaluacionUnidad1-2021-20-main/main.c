@@ -113,6 +113,7 @@ int main(int argc, char *argv[]){
                     fprintf(fpo,"Esa operacion no es reconocida");
                 }
                 k=0;
+                
             }
             }else if(cont==4){ //feature6
                 if(caracter != '\n'){
@@ -133,8 +134,7 @@ int main(int argc, char *argv[]){
                     }
                     Ced = strtol(cc,&numm,0);
                     struct Obj_t Est1 = {nombre, Ced};
-                    printf("%s",Est1.nombre);
-                    printf("%d",Est1.cedula);
+                    fprintf(fpo,"\n%i %s", Est1.cedula,Est1.nombre); // feature7
                 }
             }
 
