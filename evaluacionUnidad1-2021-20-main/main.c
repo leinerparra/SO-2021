@@ -11,7 +11,7 @@ char* substr(char* cadena, int comienzo, int longitud)
     char *nuevo = (char*)malloc(sizeof(char) * (longitud+1));
     nuevo[longitud] = '\0';
     strncpy(nuevo, cadena + comienzo, longitud);
-    
+    free(nuevo);
     return nuevo;
 }
 
@@ -46,11 +46,12 @@ int main(int argc, char *argv[]){
         while((caracter = fgetc(fpi)) != EOF){
             if(cont == 0){ //feature1
                 if(caracter!='\n'){
-                    fprintf(fpo,"%c",caracter);
+                    fprintf(fpo,"%c",caracter); // se imprime hasta que se detecta un salto de linea
                 }   
+            
             }else if(cont == 1){ //feature2
                 if(j!=0){
-                    frase[cant-j] = caracter;
+                    frase[cant-j] = caracter; // se invierte vector
                 }
                 j++;
                 if(cant==j){
@@ -61,12 +62,12 @@ int main(int argc, char *argv[]){
                 }
             }else if(cont== 2){//feature3
                 if(caracter!=' ' && caracter !='\n'){
-                    num[j] = caracter;
+                    num[j] = caracter; // se obtienen numeros
                     j++;
                 }else{
                     j=0;
-                    nume = strtol(num, &numm,0);
-                    sum = sum + nume;
+                    nume = strtol(num, &numm,0); // se pasan a long int
+                    sum = sum + nume; // sumatoria
                     for(int i=0; i<5; i++){
                         num[i] = ' ';
                     }
@@ -76,24 +77,24 @@ int main(int argc, char *argv[]){
                 }
             }else if(cont==3){//feature4
                 if(caracter!=' ' && caracter !='\n'){
-                    num[j] = caracter;
+                    num[j] = caracter; // se obtiene los numeros
                     j++;
                 }else{
                     j=0;
-                    nume = strtol(num, &numm,0);
+                    nume = strtol(num, &numm,0); // se castea a long int
                     numero[k] = nume;
                     k++;
             }
 
             if(caracter == '\n'){ //feature5
-                ope = substr(numm,0, 3);
-
-                if(strcmp(ope,"avg")==0){
+                ope = substr(numm,0, 3); // se obtiene la operacion
+                printf("%s\n",ope);
+                if(strcmp(ope,"avg")==0){ //si es avg
                     for(int i=0; i<=k;i++){
                         sum = sum + numero[i];
                     }
                     fprintf(fpo,"%d",(sum/k));
-                }else if(strcmp(ope,"max")==0){
+                }else if(strcmp(ope,"max")==0){ // si es el maximo
                     int max = -500;
                     for(int i =0; i<=k ; i++){
                         if(numero[i] > max){
@@ -101,7 +102,7 @@ int main(int argc, char *argv[]){
                         }
                     }
                     fprintf(fpo,"%d",max);
-                }else if(strcmp(ope,"min")==0){
+                }else if(strcmp(ope,"min")==0){ // si es el minimo
                     int min = 500;
                     for(int i =0; i<=k ; i++){
                         if(numero[i] > min){
@@ -122,13 +123,13 @@ int main(int argc, char *argv[]){
                 }else{
                     short x=0,y=0;
                     for(int i=0; i<k;i++){
-                        if(line[i]==','){
+                        if(line[i]==','){// dividimos las 2 partes por la coma
                             x=1;
                         }
                         else if(x==0){
-                            nombre[i] = line[i];
+                            nombre[i] = line[i]; //tomamos el nombre
                         }else if(x==1){
-                            cc[y] = line[i];
+                            cc[y] = line[i]; // tomamos la cedula
                             y++;
                         }
                     }
