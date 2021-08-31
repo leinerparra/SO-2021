@@ -21,12 +21,31 @@ void feature2(FILE *fin, FILE *fout){
     }
     fprintf(fout,bufer2);
     fprintf(fout,"\n");
-    free(bufer);
+    //free(bufer); si Se deja Activo, Aborta
     free(bufer2);
     free(temp);
 
 }
-void feature3(FILE *fin, FILE *fout){}
+void feature3(FILE *fin, FILE *fout){
+    char* bufer = (char *)calloc(sizeof(char),_LONGITUD_MAXIMA);
+    short* numeros = (short *)calloc(sizeof(short),_LONGITUD_MAXIMA);
+    char* temp = (char *)calloc(sizeof(char),4);
+    char *bash;
+    fgets(bufer,_LONGITUD_MAXIMA,fin);
+    short i=0;
+    int sum=0;
+    temp = strtok(bufer," ");
+    while(temp != NULL){
+        numeros[i] = strtol(temp,&bash,10);
+        sum = sum + numeros[i];
+        temp = strtok(NULL," ");
+        i++;
+    }
+    fprintf(fout,"%d",sum);
+    free(numeros);
+    free(temp);
+    free(bufer);
+}
 void feature4(FILE *fin, int **parr, int *length, char **op){}
 void feature5(FILE *fout, int *parr, int length, char *op){}
 void feature6(FILE *fin, struct Obj_t *pobj){}
