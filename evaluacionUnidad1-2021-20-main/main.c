@@ -26,9 +26,9 @@ int main(int argc, char *argv[]){
     feature2(fin,fout);
     feature3(fin,fout);
 
-    int *parr = NULL;
+    int *parr=NULL ;
     int length = 0;
-    char *op = NULL;
+    char *op=NULL ;
     feature4(fin,&parr,&length,&op);
     feature5(fout, parr, length, op);
 
