@@ -1,3 +1,5 @@
+#define _LONGITUD_MAXIMA 200
+
 #include <stdlib.h>
 #include <string.h>
 #include "student.h"
@@ -115,5 +117,37 @@ void feature6(FILE *fin, struct Obj_t *pobj){
 void feature7(FILE *fout, struct Obj_t *pobj){
     fprintf(fout,"%d, %s",pobj->cedula, pobj->nombre);
 }
-void feature8(FILE *fin, struct _courseInfo_t **pobj,int *length){}
+void feature8(FILE *fin, struct _courseInfo_t **pobj,int *length){
+    char* bufer = (char *)calloc(_LONGITUD_MAXIMA,sizeof(char));
+    //char* curso = (char *)calloc(32,sizeof(char));
+    int /*creditos=,*/ N=0, j=0;
+    /*float nota=0.0f;*/
+    char *bash;
+    char *bash2;
+    fgets(bufer,_LONGITUD_MAXIMA,fin);
+    N = strtol(bufer,&bash,10);
+    *pobj = (struct _courseInfo_t *)calloc(N,sizeof(struct _courseInfo_t));
+    printf("Ahora, Vas A ingresar la Info en el orden Curso,Creditos,Nota\n");
+    for(short i=0; i<N; i++){
+        j=0;
+        printf("Cuso %d: ",i+1);
+        fgets(bufer,_LONGITUD_MAXIMA,stdin);
+        bash = strtok(bufer,",");
+        while(bash!=NULL){
+            if(j==0){
+                strcpy(pobj[i]->name,bash);
+            }else if(j==1){
+                pobj[i]->credits = strtol(bash,&bash2,10);
+            }
+            else if(j==2){
+                pobj[i]->grade= strtof(bash,&bash2);
+            }
+            j++;
+            bash = strtok(NULL,",");
+        }
+
+        printf("%f %d %s\n",pobj[i]->grade,pobj[i]->credits,pobj[i]->name);
+        
+    }
+}
 void feature9(FILE *fout, struct _courseInfo_t *pobj,int length){}
