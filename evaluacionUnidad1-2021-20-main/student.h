@@ -1,6 +1,5 @@
 #ifndef _STUDENT_H
 #define _STUDENT_H
-#define _LONGITUD_MAXIMA 400
 
 #include <stdio.h>
 #include <stdlib.h>
