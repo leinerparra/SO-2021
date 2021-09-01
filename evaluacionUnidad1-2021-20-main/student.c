@@ -97,7 +97,23 @@ void feature5(FILE *fout, int *parr, int length, char *op){
         printf("Operación No reconocida");
     }
 }
-void feature6(FILE *fin, struct Obj_t *pobj){}
-void feature7(FILE *fout, struct Obj_t *pobj){}
+void feature6(FILE *fin, struct Obj_t *pobj){
+    char* bufer = (char *)calloc(_LONGITUD_MAXIMA,sizeof(char));
+    char* nombre = (char *)calloc(_LONGITUD_MAXIMA,sizeof(char));
+    int cedula = 0;
+    pobj->nombre = (char *)calloc(_LONGITUD_MAXIMA,sizeof(char));
+    char* bash;
+    fgets(bufer,_LONGITUD_MAXIMA,fin);
+    nombre = strtok(bufer,",");
+    cedula = strtol(strtok(NULL,","),&bash,10);
+    strcpy(pobj->nombre,nombre);
+    pobj->cedula = cedula;
+    free(bufer);
+    //free(nombre);
+
+}
+void feature7(FILE *fout, struct Obj_t *pobj){
+    fprintf(fout,"%d, %s",pobj->cedula, pobj->nombre);
+}
 void feature8(FILE *fin, struct _courseInfo_t **pobj,int *length){}
 void feature9(FILE *fout, struct _courseInfo_t *pobj,int length){}
