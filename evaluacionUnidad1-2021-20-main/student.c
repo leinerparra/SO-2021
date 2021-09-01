@@ -23,7 +23,6 @@ void feature2(FILE *fin, FILE *fout){
     }
     fprintf(fout,bufer2);
     fprintf(fout,"\n");
-    //free(bufer); si Se deja Activo, Aborta
     free(bufer2);
     free(temp);
 
@@ -66,11 +65,7 @@ void feature4(FILE *fin, int **parr, int *length, char **op){
     strncpy(*op,bash,3);
     *length = i;
     free(bufer);
-    //free(numeros);
     free(temp);
-    //free(bash);
-    //free(ope);
-    
 }
 void feature5(FILE *fout, int *parr, int length, char *op){
     if(strcmp(op,"avg")==0){
@@ -98,6 +93,8 @@ void feature5(FILE *fout, int *parr, int length, char *op){
     }else{
         printf("Operación No reconocida");
     }
+    free(parr);
+    free(op);
 }
 void feature6(FILE *fin, struct Obj_t *pobj){
     char* bufer = (char *)calloc(_LONGITUD_MAXIMA,sizeof(char));
@@ -111,11 +108,11 @@ void feature6(FILE *fin, struct Obj_t *pobj){
     strcpy(pobj->nombre,nombre);
     pobj->cedula = cedula;
     free(bufer);
-    //free(nombre);
 
 }
 void feature7(FILE *fout, struct Obj_t *pobj){
     fprintf(fout,"%d, %s\n",pobj->cedula, pobj->nombre);
+    //free(pobj);
 }
 void feature8(FILE *fin, struct _courseInfo_t **pobj,int *length){
     char* bufer = (char *)calloc(_LONGITUD_MAXIMA,sizeof(char));
@@ -147,10 +144,11 @@ void feature8(FILE *fin, struct _courseInfo_t **pobj,int *length){
     *pobj = parr;
     *length = N;
     free(bufer);
+    fclose(fin);
 }
 void feature9(FILE *fout, struct _courseInfo_t *pobj,int length){
     char* bufer = (char *)calloc(10,sizeof(char));
-    int sumaNota = 0, sumaCredito=0;
+    float sumaNota = 0, sumaCredito=0;
     float promedio=0.0f;
     for(short i=0; i<length;i++){
         sumaNota = sumaNota + pobj[i].grade*pobj[i].credits;
@@ -168,5 +166,8 @@ void feature9(FILE *fout, struct _courseInfo_t *pobj,int length){
     }else{
         fprintf(fout,"Promedio ponderado: %f",promedio);
     }
+    free(bufer);
+    free(pobj);
+    fclose(fout);
 
 }
